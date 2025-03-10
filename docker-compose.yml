@@ -1,0 +1,52 @@
+
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.server
+    container_name: fastapi-server
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongodb
+
+  node1:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.node1
+    container_name: node1
+    command: ["python", "node1.py"]
+    depends_on:
+      - mongodb
+
+  node2:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.node2
+    container_name: node2
+    command: ["python", "node2.py"]
+    depends_on:
+      - node1
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+
+  prometheus:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+
+  grafana:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"

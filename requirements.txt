@@ -1,6 +1,34 @@
+# torch
+# transformers
+# sentencepiece
+# grpcio
+# protobuf
+# numpy
+
+
+# Machine Learning
 torch
 transformers
 sentencepiece
+numpy
+
+# Web Framework
+fastapi
+uvicorn
+
+# WebSockets
+websockets
+
+# Database
+pymongo
+
+# gRPC for PyTorch RPC
 grpcio
 protobuf
-numpy
+
+# Monitoring with Prometheus
+prometheus-client
+prometheus-fastapi-instrumentator
+
+# Kubernetes API (optional, for Kubernetes-based deployments)
+kubernetes

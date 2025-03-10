@@ -1,0 +1,31 @@
+# FROM python:3.10
+
+# WORKDIR /app
+
+# COPY . /app
+
+# RUN pip install --no-cache-dir -r requirements.txt
+
+# CMD ["python", "node2.py"]
+
+
+
+FROM python:3.10-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements first to leverage Docker's caching mechanism
+COPY requirements.txt /app/
+
+# Upgrade pip and install dependencies
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir torch==2.0.1+cpu -f https://download.pytorch.org/whl/torch_stable.html && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy only necessary application files (avoid unnecessary large files)
+COPY . /app/
+
+
+# Set the entry point for the application
+CMD ["python", "node2.py"]
